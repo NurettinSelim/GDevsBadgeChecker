@@ -8,7 +8,9 @@ driver = webdriver.Edge(options=options)
 total_unit_count = 0
 with open("usernames.txt", "r") as file:
     for line in file:
-        total_unit_count = total_unit_count + unit_count_from_profile(driver, line.strip())
+        user_unit_count = unit_count_from_profile(driver, line.strip())
+        if user_unit_count >= 2:
+            total_unit_count = total_unit_count + user_unit_count
 
 print(f"Total unit count: {total_unit_count}")
 if 25 < total_unit_count < 50:

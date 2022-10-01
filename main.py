@@ -13,9 +13,11 @@ with open("usernames.txt", "r") as file:
             total_unit_count = total_unit_count + user_unit_count
 
 print(f"Total unit count: {total_unit_count}")
-if 25 < total_unit_count < 50:
+successful_user_count = total_unit_count // 4
+print(f"Successful user count: {successful_user_count}")
+if 25 < successful_user_count < 50:
     print("SWAG Kit 1")
-elif total_unit_count > 50:
+elif successful_user_count > 50:
     print("SWAG Kit 2")
 else:
     print("Nothing :(")

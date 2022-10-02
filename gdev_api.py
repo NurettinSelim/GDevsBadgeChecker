@@ -17,10 +17,11 @@ def unit_count_from_profile(driver, profile_url):
         badge_date = badge.find_element(By.CLASS_NAME, "badge-date").text
 
         # TODO update Eyl 2022
-        if badge_url.startswith("https://developers.google.com/profile/badges/playlists/android/android-basics-compose") \
-                and badge_date.endswith("Eyl 2022"):
-            unit = badge_url[badge_url.find("unit"):badge_url.find("unit") + 6]
-            unit_badge_counts[unit] = unit_badge_counts[unit] + 1
+        if badge_url.startswith(
+                "https://developers.google.com/profile/badges/playlists/android/android-basics-compose"):
+            if ("Eyl" in badge_date or "Sep" in badge_date) and "2022" in badge_date:
+                unit = badge_url[badge_url.find("unit"):badge_url.find("unit") + 6]
+                unit_badge_counts[unit] = unit_badge_counts[unit] + 1
 
     # print(unit_badge_counts)
 

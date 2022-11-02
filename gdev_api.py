@@ -8,10 +8,10 @@ from typing import List
 def unit_count_from_profile(driver, profile_url):
     driver.get(profile_url)
     badges_container = WebDriverWait(driver, 20).until(
-        EC.visibility_of_element_located((By.CLASS_NAME, "profile-badges-container")))
+        EC.visibility_of_element_located((By.CLASS_NAME, "profile-badges")))
 
     badges: List[WebElement] = badges_container.find_elements(By.CLASS_NAME, "badge")
-    unit_badge_counts = {"unit-1": 0, "unit-2": 0, "unit-3": 0, "unit-4": 0}
+    unit_badge_counts = {"unit-1": 0, "unit-2": 0, "unit-3": 0, "unit-4": 0, "unit-5": 0}
     for badge in badges:
         badge_url = badge.get_attribute("badge-url")
         badge_date = badge.find_element(By.CLASS_NAME, "badge-date").text
@@ -32,3 +32,22 @@ def unit_count_from_profile(driver, profile_url):
             completed_unit_count = completed_unit_count + 1
 
     return completed_unit_count
+
+
+def units_from_profile(driver, profile_url):
+    driver.get(profile_url)
+    badges_container = WebDriverWait(driver, 20).until(
+        EC.visibility_of_element_located((By.CLASS_NAME, "profile-badges")))
+
+    badges: List[WebElement] = badges_container.find_elements(By.CLASS_NAME, "badge")
+    unit_badge_counts = {"unit-1": 0, "unit-2": 0, "unit-3": 0, "unit-4": 0, "unit-5": 0}
+    for badge in badges:
+        badge_url = badge.get_attribute("badge-url")
+        badge_date = badge.find_element(By.CLASS_NAME, "badge-date").text
+
+        if badge_url.startswith(
+                "https://developers.google.com/profile/badges/playlists/android/android-basics-compose"):
+            unit = badge_url[badge_url.find("unit"):badge_url.find("unit") + 6]
+            unit_badge_counts[unit] = unit_badge_counts[unit] + 1
+
+    return unit_badge_counts
